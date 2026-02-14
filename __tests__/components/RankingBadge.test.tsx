@@ -11,43 +11,50 @@ describe('RankingBadge', () => {
   it('should apply gold color for rank 1', () => {
     render(<RankingBadge rank={1} />)
     const badge = screen.getByLabelText('Rank 1')
-    expect(badge).toHaveClass('bg-yellow-500')
+    expect(badge.className).toContain('from-yellow')
+    expect(screen.getByText('👑')).toBeInTheDocument()
   })
 
   it('should apply silver color for rank 2', () => {
     render(<RankingBadge rank={2} />)
     const badge = screen.getByLabelText('Rank 2')
-    expect(badge).toHaveClass('bg-gray-400')
+    expect(badge.className).toContain('from-gray')
+    expect(screen.getByText('🥈')).toBeInTheDocument()
   })
 
   it('should apply bronze color for rank 3', () => {
     render(<RankingBadge rank={3} />)
     const badge = screen.getByLabelText('Rank 3')
-    expect(badge).toHaveClass('bg-orange-600')
+    expect(badge.className).toContain('from-orange')
+    expect(screen.getByText('🥉')).toBeInTheDocument()
   })
 
   it('should apply blue color for ranks 4-10', () => {
     render(<RankingBadge rank={7} />)
     const badge = screen.getByLabelText('Rank 7')
-    expect(badge).toHaveClass('bg-blue-600')
+    expect(badge.className).toContain('from-blue')
   })
 
   it('should apply gray color for ranks > 10', () => {
     render(<RankingBadge rank={15} />)
     const badge = screen.getByLabelText('Rank 15')
-    expect(badge).toHaveClass('bg-gray-200')
+    expect(badge.className).toContain('from-gray')
   })
 
   it('should show positive change indicator', () => {
     render(<RankingBadge rank={5} change={3} />)
-    expect(screen.getByText('↑3')).toBeInTheDocument()
-    expect(screen.getByLabelText('Rank increased')).toBeInTheDocument()
+    const indicator = screen.getByLabelText('Rank increased')
+    expect(indicator).toBeInTheDocument()
+    expect(indicator).toHaveTextContent('↑')
+    expect(indicator).toHaveTextContent('3')
   })
 
   it('should show negative change indicator', () => {
     render(<RankingBadge rank={10} change={-2} />)
-    expect(screen.getByText('↓2')).toBeInTheDocument()
-    expect(screen.getByLabelText('Rank decreased')).toBeInTheDocument()
+    const indicator = screen.getByLabelText('Rank decreased')
+    expect(indicator).toBeInTheDocument()
+    expect(indicator).toHaveTextContent('↓')
+    expect(indicator).toHaveTextContent('2')
   })
 
   it('should not show change indicator when change is 0', () => {
@@ -64,6 +71,8 @@ describe('RankingBadge', () => {
 
   it('should show absolute value for negative change', () => {
     render(<RankingBadge rank={8} change={-5} />)
-    expect(screen.getByText('↓5')).toBeInTheDocument()
+    const indicator = screen.getByLabelText('Rank decreased')
+    expect(indicator).toHaveTextContent('↓')
+    expect(indicator).toHaveTextContent('5')
   })
 })

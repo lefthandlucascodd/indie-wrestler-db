@@ -35,7 +35,8 @@ describe('WrestlerCard', () => {
 
   it('should render popularity score', () => {
     render(<WrestlerCard wrestler={mockWrestler} />)
-    expect(screen.getByText(/Score: 13525.00/)).toBeInTheDocument()
+    expect(screen.getByText('13525')).toBeInTheDocument()
+    expect(screen.getByText(/Popularity Score/i)).toBeInTheDocument()
   })
 
   it('should render bio', () => {
@@ -73,13 +74,17 @@ describe('WrestlerCard', () => {
   it('should show rank change when previousRank provided', () => {
     render(<WrestlerCard wrestler={mockWrestler} previousRank={8} />)
     // Rank improved from 8 to 5, so change is +3
-    expect(screen.getByText('↑3')).toBeInTheDocument()
+    const indicator = screen.getByLabelText('Rank increased')
+    expect(indicator).toBeInTheDocument()
+    expect(indicator).toHaveTextContent('3')
   })
 
   it('should calculate negative rank change', () => {
     render(<WrestlerCard wrestler={mockWrestler} previousRank={3} />)
     // Rank worsened from 3 to 5, so change is -2
-    expect(screen.getByText('↓2')).toBeInTheDocument()
+    const indicator = screen.getByLabelText('Rank decreased')
+    expect(indicator).toBeInTheDocument()
+    expect(indicator).toHaveTextContent('2')
   })
 
   it('should not show rank change when previousRank not provided', () => {
