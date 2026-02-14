@@ -1,5 +1,10 @@
 # Indie Wrestler Database
 
+[![Test Suite](https://github.com/lefthandlucascodd/indie-wrestler-db/actions/workflows/test.yml/badge.svg)](https://github.com/lefthandlucascodd/indie-wrestler-db/actions/workflows/test.yml)
+[![Code Quality](https://github.com/lefthandlucascodd/indie-wrestler-db/actions/workflows/lint.yml/badge.svg)](https://github.com/lefthandlucascodd/indie-wrestler-db/actions/workflows/lint.yml)
+[![Tests](https://img.shields.io/badge/tests-89%20passing-brightgreen)](https://github.com/lefthandlucascodd/indie-wrestler-db)
+[![Coverage](https://img.shields.io/badge/coverage-90%25+-brightgreen)](https://github.com/lefthandlucascodd/indie-wrestler-db)
+
 A Next.js application that catalogs independent professional wrestlers (not signed to AEW/WWE) and ranks them by popularity based on automated data collection from social media, Reddit, and podcast mentions.
 
 ## Features
