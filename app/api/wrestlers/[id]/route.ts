@@ -10,10 +10,11 @@ const WRESTLERS_COLLECTION = 'wrestlers'
  */
 export async function GET(
   request: Request,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
-    const docRef = doc(db, WRESTLERS_COLLECTION, params.id)
+    const { id } = await params
+    const docRef = doc(db, WRESTLERS_COLLECTION, id)
     const docSnap = await getDoc(docRef)
 
     if (!docSnap.exists()) {
@@ -42,11 +43,12 @@ export async function GET(
  */
 export async function PUT(
   request: Request,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
+    const { id } = await params
     const body = await request.json()
-    const docRef = doc(db, WRESTLERS_COLLECTION, params.id)
+    const docRef = doc(db, WRESTLERS_COLLECTION, id)
 
     // Check if document exists
     const docSnap = await getDoc(docRef)
@@ -67,7 +69,7 @@ export async function PUT(
 
     return NextResponse.json({
       success: true,
-      data: { id: params.id, ...updateData },
+      data: { id, ...updateData },
     })
   } catch (error) {
     console.error('Error updating wrestler:', error)
@@ -84,10 +86,11 @@ export async function PUT(
  */
 export async function DELETE(
   request: Request,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
-    const docRef = doc(db, WRESTLERS_COLLECTION, params.id)
+    const { id } = await params
+    const docRef = doc(db, WRESTLERS_COLLECTION, id)
 
     // Check if document exists
     const docSnap = await getDoc(docRef)

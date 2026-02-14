@@ -96,7 +96,11 @@ export async function POST(request: Request) {
         const ninetyDaysAgo = Date.now() - 90 * 24 * 60 * 60 * 1000
         const filteredHistory = historicalData.filter((point) => {
           const pointDate =
-            point.date instanceof Timestamp ? point.date.toMillis() : point.date
+            point.date instanceof Timestamp
+              ? point.date.toMillis()
+              : point.date instanceof Date
+              ? point.date.getTime()
+              : point.date
           return pointDate >= ninetyDaysAgo
         })
 
